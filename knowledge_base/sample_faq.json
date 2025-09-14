@@ -1,0 +1,98 @@
+[
+  {
+    "question": "How do I reset my password?",
+    "answer": "To reset your password: 1) Go to the login page, 2) Click 'Forgot Password', 3) Enter your email address, 4) Check your email for reset instructions, 5) Follow the link and create a new password.",
+    "category": "account_management",
+    "tags": ["password", "reset", "login", "account"],
+    "priority": "high",
+    "common": true
+  },
+  {
+    "question": "How do I update my profile information?",
+    "answer": "To update your profile: 1) Log into your account, 2) Go to Settings or Profile, 3) Click Edit Profile, 4) Update the required fields, 5) Save your changes.",
+    "category": "account_management",
+    "tags": ["profile", "update", "settings", "personal_info"],
+    "priority": "medium",
+    "common": true
+  },
+  {
+    "question": "What are your support hours?",
+    "answer": "Our support team is available Monday through Friday, 9:00 AM to 6:00 PM EST. For urgent issues outside these hours, please use our emergency contact form.",
+    "category": "support_info",
+    "tags": ["hours", "schedule", "availability", "contact"],
+    "priority": "medium",
+    "common": true
+  },
+  {
+    "question": "How do I cancel my subscription?",
+    "answer": "To cancel your subscription: 1) Log into your account, 2) Go to Billing or Subscription settings, 3) Click Cancel Subscription, 4) Follow the confirmation steps. Note: Cancellation takes effect at the end of your current billing period.",
+    "category": "billing",
+    "tags": ["cancel", "subscription", "billing", "account"],
+    "priority": "high",
+    "common": false
+  },
+  {
+    "question": "How do I download my data?",
+    "answer": "To download your data: 1) Go to Settings, 2) Click Data & Privacy, 3) Select Download My Data, 4) Choose the data types you want, 5) Click Request Download. You'll receive an email when your data is ready.",
+    "category": "data_privacy",
+    "tags": ["download", "data", "export", "privacy"],
+    "priority": "medium",
+    "common": false
+  },
+  {
+    "question": "Why is my account locked?",
+    "answer": "Accounts are typically locked due to: 1) Multiple failed login attempts, 2) Suspicious activity detected, 3) Security policy violations. To unlock: 1) Wait 30 minutes and try again, 2) Use password reset, 3) Contact support if the issue persists.",
+    "category": "security",
+    "tags": ["locked", "account", "security", "login"],
+    "priority": "high",
+    "common": true
+  },
+  {
+    "question": "How do I enable two-factor authentication?",
+    "answer": "To enable 2FA: 1) Go to Security Settings, 2) Click Two-Factor Authentication, 3) Choose your method (SMS or authenticator app), 4) Follow the setup instructions, 5) Save your backup codes in a safe place.",
+    "category": "security",
+    "tags": ["2fa", "security", "authentication", "setup"],
+    "priority": "medium",
+    "common": true
+  },
+  {
+    "question": "How do I report a bug or technical issue?",
+    "answer": "To report a bug: 1) Go to Help Center, 2) Click Report a Bug, 3) Describe the issue in detail, 4) Include steps to reproduce, 5) Attach screenshots if helpful, 6) Submit the report. Our team will investigate and respond within 24-48 hours.",
+    "category": "technical_support",
+    "tags": ["bug", "report", "technical", "issue"],
+    "priority": "medium",
+    "common": true
+  },
+  {
+    "question": "How do I change my email address?",
+    "answer": "To change your email: 1) Go to Account Settings, 2) Click Email Preferences, 3) Enter your new email address, 4) Verify the new email through the confirmation link, 5) Your email will be updated once verified.",
+    "category": "account_management",
+    "tags": ["email", "change", "update", "account"],
+    "priority": "medium",
+    "common": true
+  },
+  {
+    "question": "What payment methods do you accept?",
+    "answer": "We accept the following payment methods: 1) Credit cards (Visa, MasterCard, American Express), 2) PayPal, 3) Bank transfers (for enterprise accounts), 4) Digital wallets (Apple Pay, Google Pay). All payments are processed securely.",
+    "category": "billing",
+    "tags": ["payment", "methods", "billing", "credit_card"],
+    "priority": "medium",
+    "common": true
+  },
+  {
+    "question": "How do I contact customer support?",
+    "answer": "You can contact our support team through: 1) This chat interface, 2) Email: support@company.com, 3) Phone: 1-800-SUPPORT during business hours, 4) Help Center for self-service options. We aim to respond within 24 hours.",
+    "category": "support_info",
+    "tags": ["contact", "support", "help", "email", "phone"],
+    "priority": "high",
+    "common": true
+  },
+  {
+    "question": "How do I upgrade my plan?",
+    "answer": "To upgrade your plan: 1) Go to Billing or Subscription settings, 2) Click Upgrade Plan, 3) Select your desired plan, 4) Review pricing and features, 5) Confirm the upgrade. Changes take effect immediately.",
+    "category": "billing",
+    "tags": ["upgrade", "plan", "subscription", "billing"],
+    "priority": "medium",
+    "common": true
+  }
+]
