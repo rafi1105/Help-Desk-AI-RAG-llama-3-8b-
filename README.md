@@ -4,8 +4,10 @@ A professional AI chatbot powered by LLaMA 3.2 and Retrieval-Augmented Generatio
 
 ---
 
-![GreenBot UI Screenshot](image1)
-![GreenBot CSE Department Chat](image2)
+![GreenBot UI Screenshot](<img width="1917" height="915" alt="image" src="https://github.com/user-attachments/assets/43872b4b-026d-4130-b134-40f90c4aa7b8" />
+)
+![GreenBot CSE Department Chat](<img width="1910" height="905" alt="image" src="https://github.com/user-attachments/assets/70b4e565-12f5-4b7c-a6ac-34f7b1840d65" />
+)
 
 ---
 
@@ -138,10 +140,12 @@ chatbot/
 ## 📸 Screenshots
 
 1. **Main Chat Interface:**  
-   ![Screenshot 1](image1)
+   ![Screenshot 1](<img width="1917" height="915" alt="image" src="https://github.com/user-attachments/assets/c2f6b9b2-dfae-44cc-8f43-79e04d8af7bf" />
+)
 
 2. **Sample Query (CSE Department):**  
-   ![Screenshot 2](image2)
+   ![Screenshot 2](<img width="1910" height="905" alt="image" src="https://github.com/user-attachments/assets/b54c04c9-508e-4178-b3e4-204bcd7ec276" />
+)
 
 ---
 
@@ -150,3 +154,4 @@ chatbot/
 Your GreenBot is now ready to help students and visitors learn about Green University! 🤖✨
 
 ---
+
