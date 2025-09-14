@@ -5,7 +5,7 @@ A professional AI chatbot powered by LLaMA 3.2 and Retrieval-Augmented Generatio
 ---
 
 ![GreenBot UI Screenshot](image.png)
-)
+
 ![GreenBot CSE Department Chat](public/image.png)
 
 ---
@@ -134,25 +134,11 @@ chatbot/
 - **CSE Department Example:**
   - *"Tell me about the CSE department at Green University of Bangladesh."*
 
----
 
-## 📸 Screenshots
-
-1. **Main Chat Interface:**  
-   ![Screenshot 1](<img width="1917" height="915" alt="image" src="https://github.com/user-attachments/assets/c2f6b9b2-dfae-44cc-8f43-79e04d8af7bf" />
-)
-
-2. **Sample Query (CSE Department):**  
-   ![Screenshot 2](<img width="1910" height="905" alt="image" src="https://github.com/user-attachments/assets/b54c04c9-508e-4178-b3e4-204bcd7ec276" />
-)
 
 ---
 
-## 🎉 Enjoy Your AI Assistant!
 
-Your GreenBot is now ready to help students and visitors learn about Green University! 🤖✨
-
----
 
 
 
