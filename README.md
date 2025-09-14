@@ -4,7 +4,7 @@ A professional AI chatbot powered by LLaMA 3.2 and Retrieval-Augmented Generatio
 
 ---
 
-![GreenBot UI Screenshot](<img width="1910" height="905" alt="image" src="public/image.png" />
+![GreenBot UI Screenshot](image.png)
 )
 ![GreenBot CSE Department Chat](public/image.png)
 
@@ -153,6 +153,7 @@ chatbot/
 Your GreenBot is now ready to help students and visitors learn about Green University! 🤖✨
 
 ---
+
 
 
 
