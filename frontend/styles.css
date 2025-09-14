@@ -1,0 +1,374 @@
+/* Professional Messenger-Style UI */
+:root {
+    --primary-color: #00ff37;
+    --primary-dark: #0066cc;
+    --messenger-gray: #f0f2f5;
+    --messenger-text: #1c1e21;
+    --messenger-secondary: #65676b;
+    --background-color: #ffffff;
+    --surface-color: #ffffff;
+    --text-primary: #1c1e21;
+    --text-secondary: #65676b;
+    --border-color: #e4e6ea;
+}
+
+[data-theme="dark"] {
+    --background-color: #18191a;
+    --surface-color: #242526;
+    --text-primary: #e4e6ea;
+    --text-secondary: #b0b3b8;
+    --border-color: #3a3b3c;
+    --messenger-gray: #3a3b3c;
+    --messenger-text: #e4e6ea;
+    --messenger-secondary: #b0b3b8;
+}
+
+/* Sidebar functionality */
+.sidebar.open {
+    transform: translateX(0) !important;
+}
+
+/* Sidebar overlay for mobile */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* User message alignment */
+.message.user {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+.message.user .message-content {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+}
+
+.message.user .message-timestamp {
+    text-align: left;
+}
+
+.message.bot {
+    justify-content: flex-start;
+}
+
+.message.bot .message-content {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* Smooth transitions only - no animations */
+* {
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Professional scrollbar */
+.messages-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.messages-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.messages-area::-webkit-scrollbar-thumb {
+    background: #bcc0c4;
+    border-radius: 3px;
+}
+
+.messages-area::-webkit-scrollbar-thumb:hover {
+    background: #8a8d91;
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"] .messages-area::-webkit-scrollbar-thumb {
+    background: #4e4f50;
+}
+
+[data-theme="dark"] .messages-area::-webkit-scrollbar-thumb:hover {
+    background: #6a6b6c;
+}
+
+/* Remove all floating and pulse animations */
+.floating {
+    animation: none !important;
+}
+
+.neon-pulse {
+    animation: none !important;
+}
+
+.message-glow {
+    animation: none !important;
+}
+
+.shimmer {
+    animation: none !important;
+}
+
+/* Clean message appearance */
+.message-appear {
+    opacity: 1;
+    transform: none;
+}
+
+/* Simple hover effects only */
+.btn-hover:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Notification animations */
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out-right {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-slide-out-right {
+    animation: slide-out-right 0.3s ease-in;
+}
+
+/* Notification close button hover */
+.notification-close:hover {
+    transform: scale(1.1);
+}
+
+/* Enhanced feedback buttons */
+.feedback-buttons {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.feedback-buttons:hover {
+    opacity: 1;
+}
+
+.feedback-btn.active {
+    transform: scale(0.95);
+}
+
+.feedback-btn.like-btn.active {
+    background-color: #dcfce7 !important;
+    border-color: #16a34a !important;
+    color: #16a34a !important;
+}
+
+.feedback-btn.dislike-btn.active {
+    background-color: #fef2f2 !important;
+    border-color: #dc2626 !important;
+    color: #dc2626 !important;
+}
+
+/* Dark mode feedback buttons */
+[data-theme="dark"] .feedback-btn.like-btn.active {
+    background-color: #14532d !important;
+    border-color: #16a34a !important;
+    color: #4ade80 !important;
+}
+
+[data-theme="dark"] .feedback-btn.dislike-btn.active {
+    background-color: #450a0a !important;
+    border-color: #dc2626 !important;
+    color: #f87171 !important;
+}
+
+/* Lottie Animation Styles */
+dotlottie-wc {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+dotlottie-wc:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+/* Header Lottie Animation */
+.header-lottie {
+    filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3));
+    transition: all 0.3s ease;
+}
+
+.header-lottie:hover {
+    filter: drop-shadow(0 6px 12px rgba(59, 130, 246, 0.4));
+    transform: scale(1.05);
+}
+
+[data-theme="dark"] .header-lottie {
+    filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.2));
+}
+
+[data-theme="dark"] .header-lottie:hover {
+    filter: drop-shadow(0 6px 12px rgba(59, 130, 246, 0.3));
+}
+
+/* Avatar Lottie Animations */
+.avatar-lottie {
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    padding: 2px;
+    transition: all 0.3s ease;
+}
+
+.avatar-lottie:hover {
+    background: linear-gradient(135deg, #2563eb, #059669);
+    transform: scale(1.05);
+}
+
+/* Welcome message Lottie */
+.welcome-lottie {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    border-radius: 50%;
+    padding: 3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.welcome-lottie:hover {
+    background: linear-gradient(135deg, #2563eb, #059669);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    transform: scale(1.05);
+}
+
+/* Typing indicator Lottie */
+.typing-lottie {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    border-radius: 50%;
+    padding: 3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    animation: typing-pulse 2s ease-in-out infinite;
+}
+
+.typing-lottie:hover {
+    background: linear-gradient(135deg, #2563eb, #059669);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* Message avatar Lottie */
+.message-avatar dotlottie-wc {
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    transition: all 0.3s ease;
+}
+
+.message-avatar:hover dotlottie-wc {
+    background: linear-gradient(135deg, #2563eb, #059669);
+    transform: scale(1.05);
+}
+
+/* Typing pulse animation */
+@keyframes typing-pulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+    }
+}
+
+/* Smooth animations for Lottie elements */
+@keyframes lottie-pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.02);
+        filter: brightness(1.05);
+    }
+}
+
+.lottie-animated {
+    animation: lottie-pulse 3s ease-in-out infinite;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .welcome-lottie,
+[data-theme="dark"] .typing-lottie {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .welcome-lottie:hover,
+[data-theme="dark"] .typing-lottie:hover {
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+/* Background Animation Styles */
+.background-animation {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.15;
+    transition: opacity 0.3s ease;
+    filter: blur(0.5px);
+}
+
+.background-animation:hover {
+    opacity: 0.25;
+}
+
+[data-theme="dark"] .background-animation {
+    opacity: 0.1;
+}
+
+[data-theme="dark"] .background-animation:hover {
+    opacity: 0.2;
+}
+
+.background-animation dotlottie-wc {
+    filter: grayscale(20%) brightness(0.8);
+    transition: all 0.3s ease;
+}
+
+.background-animation:hover dotlottie-wc {
+    filter: grayscale(10%) brightness(0.9);
+}
+
+/* Ensure background animation doesn't interfere with chat */
+.chat-container {
+    position: relative;
+}
+
+.chat-container .messages-area,
+.chat-container .typing-indicator,
+.chat-container .input-container {
+    position: relative;
+    z-index: 20;
+}

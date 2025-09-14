@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenBot - AI Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'messenger-blue': '#0084ff',
+                        'messenger-blue-dark': '#0066cc',
+                        'messenger-gray': '#f0f2f5',
+                        'messenger-text': '#1c1e21',
+                        'messenger-secondary': '#65676b'
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                        'sf-pro': ['SF Pro Display', 'system-ui', 'sans-serif']
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-poppins transition-colors duration-200">
+    <!-- Main Application Container -->
+    <div class="app flex h-screen overflow-hidden bg-messenger-gray dark:bg-gray-900">
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar (Hidden by default, can be toggled) -->
+        <aside class="sidebar fixed top-0 left-0 h-full w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50" id="sidebar">
+            <div class="sidebar-header p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                <div class="sidebar-title flex items-center gap-3">
+                    <span class="text-2xl">📊</span>
+                    <span class="font-semibold text-lg text-messenger-blue dark:text-blue-400">Analytics</span>
+                </div>
+                <button class="sidebar-close bg-transparent border-0 text-xl cursor-pointer text-gray-500 dark:text-gray-400 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200" id="sidebarClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav p-6">
+                <button class="nav-item w-full p-4 border-0 bg-transparent text-left rounded-lg cursor-pointer transition-colors duration-200 flex items-center gap-3 mb-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-messenger-blue dark:hover:text-blue-400 active:bg-messenger-blue active:text-white" data-section="chat">
+                    <span class="text-lg">💬</span>
+                    <span>Chat</span>
+                </button>
+                <button class="nav-item w-full p-4 border-0 bg-transparent text-left rounded-lg cursor-pointer transition-colors duration-200 flex items-center gap-3 mb-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-messenger-blue dark:hover:text-blue-400" data-section="analytics">
+                    <span class="text-lg">📊</span>
+                    <span>Analytics</span>
+                </button>
+                <button class="nav-item w-full p-4 border-0 bg-transparent text-left rounded-lg cursor-pointer transition-colors duration-200 flex items-center gap-3 mb-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-messenger-blue dark:hover:text-blue-400" data-section="settings">
+                    <span class="text-lg">⚙️</span>
+                    <span>Settings</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-content flex-1 p-6">
+                <div class="analytics-preview">
+                    <div class="stat-card bg-messenger-gray dark:bg-gray-700 p-4 rounded-lg mb-3 border border-gray-200 dark:border-gray-600">
+                        <div class="stat-label text-xs text-messenger-secondary dark:text-gray-400 mb-1 font-medium">Total Messages</div>
+                        <div class="stat-value text-2xl font-bold text-messenger-blue dark:text-blue-400" id="sidebarTotalMessages">0</div>
+                    </div>
+                    <div class="stat-card bg-messenger-gray dark:bg-gray-700 p-4 rounded-lg mb-3 border border-gray-200 dark:border-gray-600">
+                        <div class="stat-label text-xs text-messenger-secondary dark:text-gray-400 mb-1 font-medium">Active Today</div>
+                        <div class="stat-value text-2xl font-bold text-messenger-blue dark:text-blue-400" id="sidebarActiveToday">0</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content flex-1 flex flex-col ml-0 transition-all duration-300">
+            <!-- Header -->
+            <header class="header h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 sticky top-0 z-40 shadow-sm">
+                <div class="header-left flex items-center gap-4">
+                    <button class="menu-button bg-transparent border-0 text-xl cursor-pointer p-2 rounded-lg transition-colors duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-messenger-blue dark:hover:text-blue-400" id="menuToggle">
+                        <span class="text-2xl">☰</span>
+                    </button>
+                    <div class="brand flex items-center gap-3">
+                        <div class="header-lottie lottie-animated">
+                            <dotlottie-wc src="https://lottie.host/ff7d4b1f-0c7e-4d5e-9395-88fef6d7c49e/iHjJjm484E.lottie" style="width: 80px; height: 80px;" speed="2" autoplay loop></dotlottie-wc>
+                        </div>
+                        <span class="text-3xl font-bold text-green-600 dark:text-green-400">GreenBot</span>
+                    </div>
+                </div>
+
+                <div class="header-center flex-1 text-center">
+                    <div class="conversation-title">
+                        <span class="font-bold text-2xl text-gray-700 dark:text-gray-300" id="currentConversation">Green University Assistant</span>
+                    </div>
+                </div>
+
+                <div class="header-right flex items-center gap-2">
+                    <button class="header-button bg-transparent border-0 text-lg cursor-pointer p-2 rounded-lg transition-colors duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-messenger-blue dark:hover:text-blue-400" id="themeToggle" title="Toggle theme">
+                        <span class="theme-icon text-xl">🌙</span>
+                    </button>
+                    <button class="header-button bg-transparent border-0 text-lg cursor-pointer p-2 rounded-lg transition-colors duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-messenger-blue dark:hover:text-blue-400" id="newChatBtn" title="New chat">
+                        <span class="text-xl">➕</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Chat Container -->
+            <div class="chat-container flex-1 flex flex-col overflow-hidden relative">
+                <!-- Messages Area -->
+                <div class="messages-area flex-1 overflow-y-auto p-6 scroll-smooth" id="messagesArea">
+                    <!-- Professional Welcome message with Messenger Style -->
+                    <div class="message bot appear flex gap-4 mb-6">
+                        <div class="message-avatar w-12 h-12 rounded-full flex items-center justify-center text-lg flex-shrink-0 shadow-lg border-2 border-white dark:border-gray-700 welcome-lottie">
+                            <dotlottie-wc src="https://lottie.host/ff7d4b1f-0c7e-4d5e-9395-88fef6d7c49e/iHjJjm484E.lottie" style="width: 80px; height: 80px;" speed="2" autoplay loop></dotlottie-wc>
+                        </div>
+                        <div class="message-content bg-messenger-gray dark:bg-gray-700 p-4 rounded-2xl max-w-2xl shadow-sm border border-gray-200 dark:border-gray-600">
+                            <!-- Clean Welcome Message -->
+                            <div class="space-y-4">
+                                <!-- Greeting Header -->
+                                <div class="flex items-center space-x-3 pb-3 border-b border-gray-200 dark:border-gray-600">
+                                    <span class="text-2xl">👋</span>
+                                    <div>
+                                        <h3 class="font-semibold text-lg text-messenger-text dark:text-white">Welcome to GreenBot! 👋</h3>
+                                        <p class="text-sm text-messenger-secondary dark:text-gray-300 mt-1">Your intelligent assistant for Green University of Bangladesh</p>
+                                    </div>
+                                </div>
+
+                                <!-- Services Grid with Clean Design -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg border border-gray-200 dark:border-gray-500 hover:border-messenger-blue dark:hover:border-blue-400 transition-colors duration-200">
+                                        <div class="flex items-start space-x-3">
+                                            <span class="text-xl mt-1">📚</span>
+                                            <div>
+                                                <h4 class="font-medium text-messenger-text dark:text-white">Admissions</h4>
+                                                <p class="text-xs text-messenger-secondary dark:text-gray-300 mt-1">Requirements & procedures</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg border border-gray-200 dark:border-gray-500 hover:border-messenger-blue dark:hover:border-blue-400 transition-colors duration-200">
+                                        <div class="flex items-start space-x-3">
+                                            <span class="text-xl mt-1">💰</span>
+                                            <div>
+                                                <h4 class="font-medium text-messenger-text dark:text-white">Finance</h4>
+                                                <p class="text-xs text-messenger-secondary dark:text-gray-300 mt-1">Tuition fees & scholarships</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg border border-gray-200 dark:border-gray-500 hover:border-messenger-blue dark:hover:border-blue-400 transition-colors duration-200">
+                                        <div class="flex items-start space-x-3">
+                                            <span class="text-xl mt-1">🏛️</span>
+                                            <div>
+                                                <h4 class="font-medium text-messenger-text dark:text-white">Programs</h4>
+                                                <p class="text-xs text-messenger-secondary dark:text-gray-300 mt-1">CSE, BBA, Engineering & more</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg border border-gray-200 dark:border-gray-500 hover:border-messenger-blue dark:hover:border-blue-400 transition-colors duration-200">
+                                        <div class="flex items-start space-x-3">
+                                            <span class="text-xl mt-1">🏢</span>
+                                            <div>
+                                                <h4 class="font-medium text-messenger-text dark:text-white">Campus</h4>
+                                                <p class="text-xs text-messenger-secondary dark:text-gray-300 mt-1">Facilities & services</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg border border-gray-200 dark:border-gray-500 hover:border-messenger-blue dark:hover:border-blue-400 transition-colors duration-200">
+                                        <div class="flex items-start space-x-3">
+                                            <span class="text-xl mt-1">📞</span>
+                                            <div>
+                                                <h4 class="font-medium text-messenger-text dark:text-white">Contact</h4>
+                                                <p class="text-xs text-messenger-secondary dark:text-gray-300 mt-1">Information & support</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg border border-gray-200 dark:border-gray-500 hover:border-messenger-blue dark:hover:border-blue-400 transition-colors duration-200">
+                                        <div class="flex items-start space-x-3">
+                                            <span class="text-xl mt-1">💻</span>
+                                            <div>
+                                                <h4 class="font-medium text-messenger-text dark:text-white">Technical</h4>
+                                                <p class="text-xs text-messenger-secondary dark:text-gray-300 mt-1">Programming & tech help</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Call to Action with Solid Colors -->
+                               
+                            </div>
+                        </div>
+                        <div class="message-timestamp text-xs text-gray-500 dark:text-gray-400 mt-1 px-4">Just now</div>
+                        <div class="feedback-container mt-3 px-4">
+                            <div class="feedback-buttons flex space-x-2">
+                                <button class="feedback-btn like-btn bg-gray-100 hover:bg-green-100 dark:bg-gray-700 dark:hover:bg-green-900/30 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 px-3 py-2 rounded-full text-sm transition-all duration-200 flex items-center space-x-1 hover:border-green-400 dark:hover:border-green-500" title="Helpful">
+                                    <span>👍</span><span class="text-xs font-medium">Helpful</span>
+                                </button>
+                                <button class="feedback-btn dislike-btn bg-gray-100 hover:bg-red-100 dark:bg-gray-700 dark:hover:bg-red-900/30 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 px-3 py-2 rounded-full text-sm transition-all duration-200 flex items-center space-x-1 hover:border-red-400 dark:hover:border-red-500" title="Not helpful">
+                                    <span>👎</span><span class="text-xs font-medium">Not helpful</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Background Animation -->
+                <div class="background-animation absolute bottom-2 right-14 z-10 opacity-40 hover:opacity-40 transition-opacity duration-300">
+                    <dotlottie-wc src="https://lottie.host/4f2729d1-6942-40b3-b1eb-04c80f727a65/C5cnrneDqz.lottie" style="width: 600px; height: 600px;" speed="1" autoplay loop></dotlottie-wc>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator flex items-center gap-4 px-10 pb-10 hidden" id="typingIndicator">
+                    <div class="message-avatar w-12 h-12 rounded-full  flex items-center justify-center text-lg flex-shrink-0 shadow-lg border-2 border-white dark:border-gray-700 typing-lottie">
+                       <dotlottie-wc src="https://lottie.host/57efb33d-1bda-44a1-a1ee-f2e7f0075ce5/aHmPYvNt0u.lottie" style="width: 80px; height: 80px;" speed="2" autoplay loop></dotlottie-wc>'
+                    </div>
+                    <div class="typing-bubble flex gap-2 p-3 bg-messenger-gray dark:bg-gray-700 rounded-2xl border border-gray-200 dark:border-gray-600">
+                        <div class="typing-dot w-2 h-2 rounded-full bg-messenger-secondary animate-bounce" style="animation-delay: 0s;"></div>
+                        <div class="typing-dot w-2 h-2 rounded-full bg-messenger-secondary animate-bounce" style="animation-delay: 0.2s;"></div>
+                        <div class="typing-dot w-2 h-2 rounded-full bg-messenger-secondary animate-bounce" style="animation-delay: 0.4s;"></div>
+                    </div>
+                    <div class="typing-text text-sm text-gray-500 dark:text-gray-400 font-medium">GreenBot is typing...</div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-sm p-4">
+                <div class="input-wrapper bg-messenger-gray dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-3xl hover:border-messenger-blue dark:hover:border-blue-400 focus-within:border-messenger-blue dark:focus-within:border-blue-400 transition-colors duration-200 p-3">
+                    <div class="flex gap-3 items-end">
+                        <textarea
+                            class="message-input flex-1 bg-transparent border-0 outline-none resize-none placeholder-gray-500 dark:placeholder-gray-400 text-gray-800 dark:text-gray-200 text-sm leading-relaxed min-h-[24px] max-h-32"
+                            id="messageInput"
+                            placeholder="Type a message..."
+                            rows="1"
+                            maxlength="2000"
+                        ></textarea>
+
+                        <button class="send-button bg-messenger-blue hover:bg-messenger-blue-dark disabled:bg-gray-400 disabled:cursor-not-allowed rounded-full w-10 h-10 flex items-center justify-center text-white transition-colors duration-200 shadow-sm" id="sendButton" disabled>
+                            <span class="send-icon text-base">➤</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-footer flex justify-between items-center mt-2 text-xs">
+                    <div class="input-info flex items-center space-x-4">
+                        <span class="char-count text-gray-500 dark:text-gray-400 font-medium" id="charCount">0/2000</span>
+                        <span class="status-indicator flex items-center space-x-2" id="statusIndicator">
+                            <span class="status-dot w-2 h-2 bg-green-500 rounded-full"></span>
+                            <span class="status-text text-green-600 dark:text-green-400 font-medium">Online</span>
+                        </span>
+                    </div>
+                    <div class="input-actions">
+                        <button class="action-button hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" id="clearChatBtn" title="Clear conversation">
+                            <span class="text-lg">🗑️</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Analytics Modal -->
+    <div class="modal hidden fixed inset-0 z-50 flex items-center justify-center" id="analyticsModal">
+        <div class="modal-overlay absolute inset-0 bg-black/50 backdrop-blur-sm" id="analyticsOverlay"></div>
+        <div class="modal-content bg-white/90 dark:bg-slate-800/90 backdrop-blur-lg rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto relative border border-blue-200 dark:border-blue-500/30">
+            <div class="modal-header p-6 border-b border-blue-200 dark:border-blue-500/30 flex justify-between items-center">
+                <h2 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent flex items-center gap-2">
+                    <span class="text-2xl">📊</span> Learning Analytics
+                </h2>
+                <button class="modal-close bg-transparent border-0 text-xl cursor-pointer text-gray-500 dark:text-gray-400 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700 transition-all duration-200" id="analyticsModalClose">✕</button>
+            </div>
+
+            <div class="modal-body p-6">
+                <div class="analytics-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="analytics-card bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl overflow-hidden border border-blue-200 dark:border-blue-500/30">
+                        <div class="card-header p-4 bg-white/50 dark:bg-slate-700/50 border-b border-blue-200 dark:border-blue-500/30 flex items-center gap-2 font-medium">
+                            <span class="text-xl">💬</span>
+                            <span class="text-blue-700 dark:text-blue-300">Conversation Stats</span>
+                        </div>
+                        <div class="card-content p-4 space-y-3">
+                            <div class="stat-row flex justify-between items-center py-2 border-b border-blue-100 dark:border-blue-500/20">
+                                <span class="text-sm text-blue-600 dark:text-blue-400 font-medium">Total Messages</span>
+                                <span class="text-lg font-bold text-blue-700 dark:text-blue-300" id="modalTotalMessages">0</span>
+                            </div>
+                            <div class="stat-row flex justify-between items-center py-2 border-b border-blue-100 dark:border-blue-500/20">
+                                <span class="text-sm text-blue-600 dark:text-blue-400 font-medium">User Questions</span>
+                                <span class="text-lg font-bold text-blue-700 dark:text-blue-300" id="modalUserQuestions">0</span>
+                            </div>
+                            <div class="stat-row flex justify-between items-center py-2">
+                                <span class="text-sm text-blue-600 dark:text-blue-400 font-medium">Bot Responses</span>
+                                <span class="text-lg font-bold text-blue-700 dark:text-blue-300" id="modalBotResponses">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card bg-gradient-to-br from-cyan-50 to-indigo-50 dark:from-cyan-900/20 dark:to-indigo-900/20 rounded-xl overflow-hidden border border-cyan-200 dark:border-cyan-500/30">
+                        <div class="card-header p-4 bg-white/50 dark:bg-slate-700/50 border-b border-cyan-200 dark:border-cyan-500/30 flex items-center gap-2 font-medium">
+                            <span class="text-xl">👍</span>
+                            <span class="text-cyan-700 dark:text-cyan-300">Feedback Analytics</span>
+                        </div>
+                        <div class="card-content p-4 space-y-3">
+                            <div class="stat-row flex justify-between items-center py-2 border-b border-cyan-100 dark:border-cyan-500/20">
+                                <span class="text-sm text-cyan-600 dark:text-cyan-400 font-medium">Positive</span>
+                                <span class="text-lg font-bold text-cyan-700 dark:text-cyan-300" id="modalPositiveFeedback">0</span>
+                            </div>
+                            <div class="stat-row flex justify-between items-center py-2 border-b border-cyan-100 dark:border-cyan-500/20">
+                                <span class="text-sm text-cyan-600 dark:text-cyan-400 font-medium">Negative</span>
+                                <span class="text-lg font-bold text-cyan-700 dark:text-cyan-300" id="modalNegativeFeedback">0</span>
+                            </div>
+                            <div class="stat-row flex justify-between items-center py-2">
+                                <span class="text-sm text-cyan-600 dark:text-cyan-400 font-medium">Satisfaction Rate</span>
+                                <span class="text-lg font-bold text-cyan-700 dark:text-cyan-300" id="modalSatisfactionRate">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal hidden fixed inset-0 z-50 flex items-center justify-center" id="settingsModal">
+        <div class="modal-overlay absolute inset-0 bg-black/50 backdrop-blur-sm" id="settingsOverlay"></div>
+        <div class="modal-content bg-white/90 dark:bg-slate-800/90 backdrop-blur-lg rounded-2xl shadow-2xl max-w-lg w-full mx-4 max-h-[90vh] overflow-auto relative border border-blue-200 dark:border-blue-500/30">
+            <div class="modal-header p-6 border-b border-blue-200 dark:border-blue-500/30 flex justify-between items-center">
+                <h2 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent flex items-center gap-2">
+                    <span class="text-2xl">⚙️</span> Settings
+                </h2>
+                <button class="modal-close bg-transparent border-0 text-xl cursor-pointer text-gray-500 dark:text-gray-400 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700 transition-all duration-200" id="settingsModalClose">✕</button>
+            </div>
+
+            <div class="modal-body p-6">
+                <div class="settings-section mb-8">
+                    <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-300">Appearance</h3>
+                    <div class="setting-item flex justify-between items-center py-4 border-b border-blue-100 dark:border-blue-500/20">
+                        <label class="setting-label font-medium text-gray-700 dark:text-gray-300">Theme</label>
+                        <div class="setting-control flex gap-2">
+                            <button class="theme-option px-4 py-2 border border-blue-200 dark:border-blue-500/30 bg-blue-50 dark:bg-blue-900/30 rounded-lg cursor-pointer transition-all duration-200 text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-800/50 active:bg-blue-500 active:text-white" data-theme="light">Light</button>
+                            <button class="theme-option px-4 py-2 border border-blue-200 dark:border-blue-500/30 bg-blue-50 dark:bg-blue-900/30 rounded-lg cursor-pointer transition-all duration-200 text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-800/50" data-theme="dark">Dark</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-300">Behavior</h3>
+                    <div class="setting-item flex justify-between items-center py-4">
+                        <label class="setting-label font-medium text-gray-700 dark:text-gray-300">Auto-scroll to new messages</label>
+                        <div class="setting-control">
+                            <label class="toggle relative inline-block w-12 h-6">
+                                <input type="checkbox" id="autoScrollToggle" checked class="opacity-0 w-0 h-0">
+                                <span class="toggle-slider absolute cursor-pointer inset-0 bg-gray-400 dark:bg-gray-600 transition-all duration-300 rounded-full before:absolute before:content-[''] before:h-5 before:w-5 before:left-0.5 before:bottom-0.5 before:bg-white before:transition-all before:duration-300 before:rounded-full checked:bg-blue-500 checked:before:translate-x-6"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container fixed top-5 right-5 z-50" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
